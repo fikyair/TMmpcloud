@@ -21,6 +21,7 @@ Page({
     datatest: [{name: 1},{name: 2},{name :3}],
     getDate: null,
     dayTime: '',
+    isIPXr: app.globalData.isIPXr,
   },
   tabSelect(e) {
     const taskStyle = e.currentTarget.dataset.id === 0 ? false : true;
@@ -195,7 +196,7 @@ Page({
     }),
     // 获取文档接口
     wx.request({
-        url: 'http://172.16.138.139/wct/wx/findAll', // 仅为示例，并非真实的接口地址
+      url: 'https://overseasdemo.vbill.cn/wct/wx/findAll', // 仅为示例，并非真实的接口地址
         header: {
           'content-type': 'application/json' // 默认值
         },

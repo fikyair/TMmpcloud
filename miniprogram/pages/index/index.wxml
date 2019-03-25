@@ -13,7 +13,7 @@
 		</view>
 	</scroll-view>
 
-	<view hidden="{{taskStyle}}">
+	<view hidden="{{taskStyle}}" class='margin-task-bar'>
 		<navigator
 		 class="cu-card case bg-white margin "
 		 url="../detailTasks/detailTasks?id={{item._id}}"
@@ -49,8 +49,8 @@
                             </view>
 
 		</navigator>
-	<form bindsubmit="formSubmit">
-		<view class='cu-bar foot input'>
+	<form bindsubmit="formSubmit" >
+		<view class='cu-bar foot input foot-bar'>
 			<input
 			 class='solid-bottom'
 			 placeholder="准备做什么？"
@@ -74,8 +74,8 @@
 
               </view>
 			</view>
-			<form bindsubmit="formSubmit01">
-				<view class='padding-xl'>
+			<form bindsubmit="formSubmit01" >
+				<view class='padding-xl foot-bar'>
 					<view class='cu-form-group margin-top'>
 						<view class='title'>任务名称</view>
 						<input placeholder='准备做什么？' class='radius' name='input' />

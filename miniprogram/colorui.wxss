@@ -619,6 +619,13 @@ checkbox.white[checked] .wx-checkbox-input, radio.white[checked] .wx-radio-input
   height: 80rpx;
 }
 
+.lg-adapt {
+  padding: 0 40rpx;
+  font-size: 32rpx;
+  height: 128rpx;
+}
+
+
 .cu-btn.icon.sm {
   width: 48rpx;
   height: 48rpx;

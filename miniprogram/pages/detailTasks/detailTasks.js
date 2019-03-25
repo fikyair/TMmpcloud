@@ -30,6 +30,11 @@ Page({
     otherSonProgress: 0,
     getPTask:{},
     parent_id_ptask: 'ww',
+    isIPX: app.globalData.isIPX,
+    isIPXr: app.globalData.isIPXr,
+    isIPXs: app.globalData.isIPXr, //当前设备是否为 iPhone Xs
+    isIPXsMax: app.globalData.isIPXr,
+    IPAdapt: false,
   },
 
   /**
@@ -42,6 +47,13 @@ Page({
             userInfo: app.globalData.userInfo,
             //userInfoAnickname: app.globalData.userInfo.nickName,
             //userInfoAimageurl: app.globalData.userInfo.avatarUrl,
+        })
+    }
+    const { isIPX, isIPXr, isIPXs, isIPXsMax}= this.data;
+    //适配信息
+    if(isIPX||isIPXr||isIPXs||isIPXsMax){
+        this.setData({
+            IPAdapt: true
         })
     }
     //console.log("-->",this.data.userInfo)
@@ -181,7 +193,7 @@ Page({
                         closeModalShow: false,
                         hasSon: true
                     })
-         // this.onLoad();
+         //this.onLoad();
         })
 
         //将父任务的子任务个数+1
@@ -275,85 +287,63 @@ Page({
     //根据其parentId查出它父任务的_id,再根据_id查出所有子节点并计算进度值
     //循环一下
     let parent_id_ptask = 'ww';
-    while(this.data.parent_id_ptask){
-        let that = this;
-        that.checkothertask();
-        debugger
-        let thisTask_pid = this.data.filterList.parent_id;  //拿到本条数据的父任务的_id
+   
+
+
+    let thisTask_pid = this.data.filterList.parent_id;  //拿到本条数据的父任务的_id
+    let filterList_id = this.data.filterList._id;
         db.collection('tasks-list').where({
-            _id: _.eq(thisTask_pid)
-        }).get({
-            success: (res)=>{
-                //保存父任务
-                console.log("父任务",res)
-                this.setData({
-                    getPTask: res.data[0],
-                    parent_id_ptask: this.data.getPTask.parent_id//拿到父任务的id
-                })
-                this.checkothertask(this.data.parent_id_ptask)
-            },
-            fail: (err)=>{
-                console.log("err",err)
-            }
+            parent_id: _.eq(filterList_id)
         })
-        checkothertask=(parent_id_ptask)=>{
-            //查出其父节点的其他子任务
-            let filterList_id = this.data.filterList._id;
-            db.collection('tasks-list').where({
-                parent_id: _.eq(parent_id_ptask)
-            })
-                .get({
-                success: (res) =>{
-                    
-                    let  allTasksByOnePid = []
-                    allTasksByOnePid = res.data;
-                    //剔除本条数据
-                    let otherSonProgressT = 0;
-                    allTasksByOnePid.length!==0&&allTasksByOnePid.map(item=>{
-                        console.log("id",filterList_id)
-                        if(item._id!==filterList_id){
-                            otherSonProgressT = item.task_progress + otherSonProgressT;
-                            this.setData({
-                                otherSonProgress: otherSonProgressT
-                            })
+            .get({
+            success: (res) =>{
+                
+                let  allTasksByOnePid = []
+                allTasksByOnePid = res.data;
+                //剔除本条数据
+                let otherSonProgressT = 0;
+                allTasksByOnePid.length!==0&&allTasksByOnePid.map(item=>{
+                    console.log("id",filterList_id)
+                    if(item._id!==filterList_id){
+                        otherSonProgressT = item.task_progress + otherSonProgressT;
+                        this.setData({
+                            otherSonProgress: otherSonProgressT
+                        })
+                    }
+                })
+
+                console.log("otherSonProgress",this.data.otherSonProgress)
+                //算好的值更新到父任务里   -----buzou
+            //=======>异步怎么优雅的解决呢 
+            
+                setTimeout(()=>{
+                    if(allTasksByOnePid.length!==0){
+                        console.log("dd-s-s-s",this.data.formData)
+                        let fatherProgressT = ((this.data.otherSonProgress + this.data.formData.task_progress).toFixed(10))/allTasksByOnePid.length
+                        this.setData({
+                            fatherProgress: fatherProgressT
+                        })
+                    }
+                    console.log('parent_id',this.data.filterList.parent_id)
+                    //将修改后的任务进度经过计算后更新到父任务记录里
+                    console.log('fatherProgress',this.data.fatherProgress)
+                    wx.cloud.callFunction({
+                        name: 'updateFatherProgress',
+                        data: {
+                            parent_id: this.data.filterList.parent_id,
+                            fatherProgress: this.data.fatherProgress,
+                        },
+                        success(res){
+                            console.log("进度返回",res)
+                        },
+                        fail (err){
+                            console.log("进度错误返回",err)
                         }
                     })
-
-                    console.log("otherSonProgress",this.data.otherSonProgress)
-                    //算好的值更新到父任务里   -----buzou
-                //=======>异步怎么优雅的解决呢 
-                debugger
-                    setTimeout(()=>{
-                        if(allTasksByOnePid.length!==0){
-                            console.log("dd-s-s-s",this.data.formData)
-                            let fatherProgressT = ((this.data.otherSonProgress + this.data.formData.task_progress).toFixed(10))/allTasksByOnePid.length
-                            this.setData({
-                                fatherProgress: fatherProgressT
-                            })
-                        }
-                        console.log('parent_id',this.data.filterList.parent_id)
-                        //将修改后的任务进度经过计算后更新到父任务记录里
-                        console.log('fatherProgress',this.data.fatherProgress)
-                        wx.cloud.callFunction({
-                            name: 'updateFatherProgress',
-                            data: {
-                                parent_id: this.data.filterList.parent_id,
-                                fatherProgress: this.data.fatherProgress,
-                            },
-                            success(res){
-                                console.log("进度返回",res)
-                            },
-                            fail (err){
-                                console.log("进度错误返回",err)
-                            }
-                        })
-                    },1000)
-                    
-                }
-                })                              
-        }
-        
-    }
+                },1000)
+                
+            }
+            })  
 
     wx.cloud.callFunction({
         name: 'updateDetail',

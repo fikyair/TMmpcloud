@@ -7,6 +7,14 @@ page {
   justify-content: flex-start;
 }
 
+.foot-bar {
+    height: 128rpx
+}
+
+.margin-task-bar {
+    margin-bottom: 144rpx;
+}
+
 .img-send {
   width:58rpx;
   height:50rpx;
