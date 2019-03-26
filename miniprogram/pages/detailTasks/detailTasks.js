@@ -291,7 +291,7 @@ Page({
 
     let thisTask_pid = this.data.filterList.parent_id;  //拿到本条数据的父任务的_id
 
-    while(this.data.parentId){
+    //while(this.data.parentId){
         let that = this;
     
        wx.cloud.callFunction({
@@ -301,24 +301,24 @@ Page({
                 filterList_id: this.data.filterList._id,
                 formData: this.data.formData,
             }
-        }).then(res=>{
+        }).then( (res) =>{
             console.log('getParentId',res)
             this.setData({
                 parentId: res.result.getPTask.parent_id||''
             })
-            wx.cloud.callFunction({
+
+             wx.cloud.callFunction({
                 name: 'updateFatherProgress',
                 data: {
                     parent_id: thisTask_pid,
                     fatherProgress: res.result.fatherProgress,
                 }
             })
-
         })
-        
+        console.log("===>",this.data.parent_id)
         //this.checkothertask(this.data.parent_id_ptask)
-    }
-
+    //}
+    //延时加载访问数据库
     wx.cloud.callFunction({
         name: 'updateDetail',
         data: {
@@ -339,7 +339,7 @@ Page({
       wx.redirectTo({
           url: '../index/index',
           success: (result)=>{
-              
+             
           },
           fail: ()=>{},
           complete: ()=>{}

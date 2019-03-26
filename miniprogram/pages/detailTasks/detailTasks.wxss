@@ -15,3 +15,6 @@
 .progress-bottom{
     height: 286rpx;
 }
+.margin-list{
+    margin: 7rpx
+}

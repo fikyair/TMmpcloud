@@ -196,7 +196,7 @@ Page({
     }),
     // 获取文档接口
     wx.request({
-      url: '', // 仅为示例，并非真实的接口地址
+      url: 'https://overseasdemo.vbill.cn/wct/wx/findAll', // 仅为示例，并非真实的接口地址
         header: {
           'content-type': 'application/json' // 默认值
         },

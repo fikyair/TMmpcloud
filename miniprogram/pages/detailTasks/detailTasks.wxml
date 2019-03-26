@@ -30,7 +30,7 @@
 		</view>
 		<view class="cu-form-group">
 			<input
-			 placeholder="任务名称"
+			 placeholder="请填写任务名称"
 			 class='radius text-xl text-black'
 			 style="margin-top: 8rpx; margin-left: 10rpx;"
 			 name='task_name'
@@ -59,55 +59,49 @@
 		<view class="cu-bar bg-white solid-bottom">
 			<view class="cu-bar justify-center bg-white">
 				<view class='action sub-title'>
-					<text class='text-m text-bold text-cyan'>截止日期
-</text>
-					<text class='bg-cyan' style='width:2rem'/>
-
-
-            </view>
+					<text class='text-m text-bold text-cyan'>截止日期</text>
+					<text class='bg-cyan' style='width:2rem'></text>
+                </view>
 			</view>
-		</view>
-		<view class="cu-form-group">
-			<picker
-			 mode="date"
-			 value="{{task_date}}"
-			 bindchange="bindDateChange"
-			 style="margin-left: 10rpx;"
-			>
-				<view class="picker text-xl text-black">
-					{{task_date?task_date:'请选择'}}
-				</view>
-			</picker>
+            <view class="cu-form-group">
+                    <picker
+                    mode="date"
+                    value="{{task_date}}"
+                    bindchange="bindDateChange"
+                    style="margin-left: 10rpx;"
+                    >
+                        <view class="picker text-xl text-black">
+                            {{task_date?task_date:'请选择'}}
+                        </view>
+                    </picker>
+		       </view>
 		</view>
 		<view class="cu-bar bg-white solid-bottom">
 			<view class="cu-bar justify-center bg-white">
 				<view class='action sub-title'>
-					<text class='text-m text-bold text-cyan'>指派人
-</text>
-					<text class='bg-cyan' style='width:2rem'/>
-
-
-            </view>
+					<text class='text-m text-bold text-cyan'>指派人</text>
+					<text class='bg-cyan' style='width:2rem'></text>
+                </view>
 			</view>
-		</view>
-		<view class="cu-form-group">
-			<view class="user-avatar sm" bindtap='inviteFriends' wx:if='{{filterList.task_person==null}}'>
-				<view class='cu-avatar round sm text-grey' style='background-image: url(https://image.weilanwl.com/img/square-1.jpg)' />
-			</view>
-			<view class="user-avatar sm" bindtap='inviteFriends' wx:else>
-				<view class='cu-avatar round sm text-grey' style='background-image: url({{filterList.task_personavater}})' />
-			</view>
+            
+            <view class="cu-form-group">
+                <view bindtap='inviteFriends' wx:if='{{filterList.task_person==null}}'>
+                    <view class='cu-avatar round xs text-grey' style='background-image: url(https://image.weilanwl.com/img/square-1.jpg)' />
+                </view>
+                <view bindtap='inviteFriends' wx:else>
+                    <view class='cu-avatar round sm text-grey' style='background-image: url({{filterList.task_personavater}})' />
+                </view>
+		    </view>
+            
 		</view>
 </view>
 
-<view class='margin'>
-	<Text class='icon-titles text-green'/>
-
+<view class='margin-list'>
+	<Text class='icon-titles text-green'></Text>
 	<Text class='text-m text-bold'>
         子任务列表
-    
-</Text>
-				</view>
+    </Text>
+</view>
 
 				<!-- 子任务
 <view class="cu-list menu margin-top card-menu">
@@ -129,7 +123,7 @@
 -->
 
 				<!-- 判断子任务 -->
-				<view wx:if='{{hasSon==true}}'>
+				<view wx:if='{{hasSon==true}}' class='margin'>
 					<navigator
 					 url="../detailTasks/detailTasks?id={{item._id}}"
 					 open-type="redirect"
@@ -137,7 +131,7 @@
 					 wx:for-index="idx"
 					 wx:for-item="item"
 					>
-						<view class="cu-list menu list-menu card-menu">
+						<view class="cu-list menu list-menu">
 							<view class="cu-item arrow">
 								<button class='cu-btn content' bindtap=''>
 									<text class='icon-notice text-sm'></text>
@@ -149,15 +143,16 @@
 					</navigator>
 				</view>
 
-				<view wx:if='{{hasSon==false}}' />
+				<view wx:if='{{hasSon==false}}' class='margin'/>
 
 				<!-- 进度条-->
 				<view class="cu-list ">
 					<view class="cu-item" style="padding: 0 7rpx;">
 						<view class='content padding-tb-sm'>
-							<view>
-								<text class='icon-titles text-green text-xl'> 任务进度(%)</text>
-							</view>
+                            <Text class='icon-titles text-green'></Text>
+                            <Text class='text-m text-bold'>
+                                任务进度(%)
+                            </Text>
 						</view>
 					</view>
 				</view>
@@ -168,7 +163,7 @@
 							 placeholder="请填写进度"
 							 class='radius text-xl text-black'
 							 name='task_progress'
-							 value='{{filterList.task_progress*100}}'
+							 value="{{filterList.task_progress?filterList.task_progress*100:'0'}}"
 							/>
 						</view>
 					</view>
