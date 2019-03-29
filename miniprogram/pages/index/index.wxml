@@ -31,7 +31,7 @@
                                         <view wx:if='{{item.task_person==null}}'>
                                             <view class='text-gray text-sm'>
                                                 <text class='icon-time margin'>{{item.task_time?item.task_time:'截止日期'}}</text> 指派人：
-                                                <view class='cu-avatar round sm text-grey' style='background-image: url(https://image.weilanwl.com/img/square-1.jpg)' />
+                                                <text class='icon-people cu-avatar round sm'></text>
                                                 <text class=' text-grey margin light'>{{item.task_person?item.task_person:'未指派'}}</text>  
                                                 <text class=' text-grey margin light'>{{item.task_progress*100}}</text>%  
                                             </view>

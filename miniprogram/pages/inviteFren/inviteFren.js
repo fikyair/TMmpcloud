@@ -44,8 +44,22 @@ Page({
           },
       })
   },
-  showUserInfo: function () {
-    //this.onLoad();
+  onGotUserInfo(e) {
+      //  e.detail.errMsg  getUserInfo:ok    getUserInfo:fail auth deny
+    if(e.detail.errMsg==='getUserInfo:ok'){
+        this.agreeJoin();
+    }else if(e.detail.errMsg==='getUserInfo:fail auth deny'){
+        wx.showToast({
+            title: '请先微信授权后操作',
+            icon: 'none',
+            duration: 1500,
+            mask: false,
+            success: (result)=>{
+            },
+            fail: ()=>{},
+            complete: ()=>{}
+        });
+    }
   },
   agreeJoin: function () {
     const db = wx.cloud.database()
@@ -66,24 +80,6 @@ Page({
                   userInfo: res.userInfo,
                   agreeBtn: true
                 })
-                
-                        // db.collection('tasks-list').doc(this.data.task_id).update({
-                        //     data: {
-                        //         task_sender: this.data.task_sender,
-                        //         task_receive: this.data.task_receive,
-                        //         task_person:  this.data.userInfo.nickName,
-                        //         task_personavater: this.data.userInfo.avatarUrl,
-                        //     },
-                        // success: res =>{
-                        //     //console.log("跳转的前一行")
-
-                        //     console.log('成功状态',res)
-                        // },
-                        // fail: err =>{
-                        //     console.log('失败状态', err)
-                        // }
-                        // })
-                        // console.log("跳转的前一行")
                         wx.cloud.callFunction({
                             name: 'updateTask',
                             data: {
@@ -131,9 +127,6 @@ Page({
 
         }
       })
-
-
-
   },
   //oAyA75FePAScc5GWh6xir_xVauR4
   /**

@@ -21,11 +21,9 @@
 		<view class="cu-bar bg-white solid-bottom">
 			<view class="cu-bar justify-center bg-white">
 				<view class='action sub-title'>
-					<text class='text-m text-bold text-cyan'>任务名称</text>
-					<text class='bg-cyan' style='width:2rem'/>
-
-
-            </view>
+					<text class='text-lg text-bold text-black'>任务名称</text>
+					<text class='bg-white' style='width:3rem'/>
+                </view>
 			</view>
 		</view>
 		<view class="cu-form-group">
@@ -40,9 +38,9 @@
 		<view class="cu-bar bg-white solid-bottom">
 			<view class="cu-bar justify-center bg-white">
 				<view class='action sub-title'>
-					<text class='text-m text-bold text-cyan'>任务详情
+					<text class='text-lg text-bold text-black'>任务详情
 </text>
-					<text class='bg-cyan' style='width:2rem'/>
+					<text class='bg-white' style='width:3rem'/>
 
 
             </view>
@@ -58,9 +56,9 @@
 		</view>
 		<view class="cu-bar bg-white solid-bottom">
 			<view class="cu-bar justify-center bg-white">
-				<view class='action sub-title'>
-					<text class='text-m text-bold text-cyan'>截止日期</text>
-					<text class='bg-cyan' style='width:2rem'></text>
+				<view class='action'>
+					<text class='text-lg text-bold text-black'>截止日期</text>
+					<text class='bg-white' style='width:3rem'></text>
                 </view>
 			</view>
             <view class="cu-form-group">
@@ -79,14 +77,14 @@
 		<view class="cu-bar bg-white solid-bottom">
 			<view class="cu-bar justify-center bg-white">
 				<view class='action sub-title'>
-					<text class='text-m text-bold text-cyan'>指派人</text>
-					<text class='bg-cyan' style='width:2rem'></text>
+					<text class='text-lg text-bold text-black'>指派人</text>
+					<text class='bg-white' style='width:2rem'></text>
                 </view>
 			</view>
             
             <view class="cu-form-group">
                 <view bindtap='inviteFriends' wx:if='{{filterList.task_person==null}}'>
-                    <view class='cu-avatar round xs text-grey' style='background-image: url(https://image.weilanwl.com/img/square-1.jpg)' />
+                    <text class='icon-people cu-avatar round sm'></text>
                 </view>
                 <view bindtap='inviteFriends' wx:else>
                     <view class='cu-avatar round sm text-grey' style='background-image: url({{filterList.task_personavater}})' />

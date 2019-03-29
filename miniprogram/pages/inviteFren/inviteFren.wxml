@@ -1,12 +1,6 @@
 <view class="cu-card padding flex flex-direction">
     
-    <button class='cu-btn bg-red lg margin-bottom-xl' open-type='getUserInfo' bindtap='showUserInfo'>点击授权</button>
+    <button class='cu-btn bg-red lg margin-bottom-xl' open-type='getUserInfo' disabled='{{agreeBtn}}' bindgetuserinfo='onGotUserInfo'>点击授权</button>
 
-    <view wx:if='{{agreeBtn===false}}'>
-        <button class='cu-btn bg-grey lg'  bindtap='agreeJoin'>同意加入🤝</button>
-    </view>
-    <view wx:else>
-        <button class='cu-btn bg-grey lg'  disabled='{{agreeBtn}}' >已加入</button>
-    </view>
 
 </view>

@@ -18,7 +18,9 @@ App({
     isIPXs: false, //当前设备是否为 iPhone Xs
     isIPXr: false, //当前设备是否为 iPhone Xr
     isIPXsMax: false, //当前设备是否为 iPhone XsMax
+    isIOS: false,
   },
+  
   checkIsIPhoneXOrMaxOrXr: function() {
     const self = this
     wx.getSystemInfo({
@@ -36,6 +38,9 @@ App({
         }
         if (res.model.search('iPhone XS Max') != -1) {
             self.globalData.isIPXsMax = true
+        }
+        if(res.system.search('iPhone')){
+            self.globalData.isIOS = true
         }
         // 或者根据 screenHeight 进行判断
         // if (res.screenHeight == 812) {

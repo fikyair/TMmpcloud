@@ -294,7 +294,7 @@ Page({
     //while(this.data.parentId){
         let that = this;
     
-       wx.cloud.callFunction({
+     wx.cloud.callFunction({
             name: 'getParentId',
             data: {
                 thisTask_pid: thisTask_pid,
