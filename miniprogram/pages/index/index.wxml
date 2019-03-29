@@ -106,6 +106,7 @@
                             <view class='cu-tag bg-cyan'>{{item.relativeUrl}}</view>
                             <view class='cu-tag line-cyan'>{{item.createdDate}}</view>
                         </view>
+                        
                         <view class= 'magintop-to cu-list flex justify-between bg-white' wx:if="{{item.suffix==='.doc' }}" data-dUrl='{{item.url}}' data-fileType='{{item.url}}' bindtap='openDocument'>
                             <view class='margin-view' data-dUrl='{{item.url}}' data-fileType='{{item.url}}' >{{item.name}}</view>
                             <image 
